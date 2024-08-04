@@ -52,18 +52,11 @@ module cva6_zybo_z7_20 (
   inout wire ps_srstb,
 `endif
 
+  // No JTAG interface. Internal BSCANE interface is used.
 
-  // common part
-  input logic      trst_n    ,
-  input  logic     tck       ,
-  input  logic     tms       ,
-  input  logic     tdi       ,
-  output wire      tdo       ,
+  // UART interface
   input  logic     rx        ,
   output logic     tx	
-
-
-
 
 );
 
@@ -182,9 +175,7 @@ logic ps_clock_out;
 logic rst_n, rst;
 logic rtc;
 
-
-//assign trst_n = 1'b1;
-//assign trst_n = ndmreset_n;
+assign trst_n = 1'b1;
 
 logic pll_locked;
 
@@ -272,18 +263,29 @@ axi_xbar_intf #(
   .default_mst_port_i    ( '0         )
 );
 
+  logic tck, tdi, tms, tdo, tdo_enable;
 
-//`ifdef LAUTERBACH_DEBUG_PROBE
-  assign dmi_trst_n = trst_n;
-//`else
-//  assign dmi_trst_n = 1'b1;
-//`endif
+  JTAGTUNNEL JtagTunnel(
+    .jtag_tck(tck),
+    .jtag_tms(tms),
+    .jtag_tdi(tdi),
+    .jtag_tdo(tdo),
+    .jtag_tdo_en(tdo_enable)
+  );
+
+ assign dmi_trst_n = 1'b1;
+
 
 // ---------------
 // Debug Module
 // ---------------
 dmi_jtag  #(
         .IdcodeValue          ( 32'h249511C3    )
+        // Decoding scheme
+        // xxxx             version                0x2
+        // xxxxxxxxxxxxxxxx part number            0x4951
+        // xxxxxxxxxxx      manufacturer id        0xe1
+        // 1                required by standard
     )i_dmi_jtag (
     .clk_i                ( clk                  ),
     .rst_ni               ( rst_n                ),
@@ -300,7 +302,7 @@ dmi_jtag  #(
     .trst_ni              ( dmi_trst_n ),
     .td_i                 ( tdi    ),
     .td_o                 ( tdo    ),
-    .tdo_oe_o             (        )
+    .tdo_oe_o             ( tdo_enable )
 );
 
 ariane_axi::req_t    dm_axi_m_req;
@@ -1021,7 +1023,7 @@ xlnx_blk_mem_gen i_xlnx_blk_mem_gen (
     .s_axi_rready ( dram.r_ready )
   );
 
-`endif  
+`endif
 
 endmodule
 

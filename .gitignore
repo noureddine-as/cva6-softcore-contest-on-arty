@@ -55,3 +55,4 @@ corev_apu/fpga/cva6_fpga.xpr
 corev_apu/fpga/reports_cva6_fpga_impl/
 corev_apu/fpga/reports_cva6_fpga_synth/
 corev_apu/fpga/*.xci
+private

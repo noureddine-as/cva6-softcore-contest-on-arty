@@ -47,3 +47,11 @@ Bender.lock
 /tools/
 /util/gcc-toolchain-builder/src/
 /util/gcc-toolchain-builder/build/
+# Files resulting from HW build
+corev_apu/fpga/cva6_fpga.cache/
+corev_apu/fpga/cva6_fpga.hw/
+corev_apu/fpga/cva6_fpga.runs/
+corev_apu/fpga/cva6_fpga.xpr
+corev_apu/fpga/reports_cva6_fpga_impl/
+corev_apu/fpga/reports_cva6_fpga_synth/
+corev_apu/fpga/*.xci

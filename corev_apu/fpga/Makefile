@@ -36,11 +36,13 @@ bit := $(work-dir)/cva6_fpga.bit
 
 ip-dir := xilinx
 ips := xlnx_blk_mem_gen.xci \
-       xlnx_processing_system7.xci \
        xlnx_axi_clock_converter.xci \
        xlnx_axi_dwidth_converter_dm_master.xci \
        xlnx_axi_dwidth_converter_dm_slave.xci \
-       xlnx_clk_gen.xci             
+       xlnx_clk_gen.xci
+
+# Arty A7 100T does not have or need the processing system
+# xlnx_processing_system7.xci
 
 all: $(cva6_ooc)
 

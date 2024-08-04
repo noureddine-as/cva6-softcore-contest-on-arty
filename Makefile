@@ -81,10 +81,16 @@ endif
 # Location of Verilator headers and optional source files
 VL_INC_DIR := $(VERILATOR_INSTALL_DIR)/share/verilator/include
 
-# board name for bitstream generation.
-BOARD          := zybo-z7-20
-XILINX_PART    := xc7z020clg400-1
-XILINX_BOARD   := digilentinc.com:zybo-z7-20:part0:1.2
+# Zybo-z7-20
+# BOARD          := zybo-z7-20
+# XILINX_PART    := xc7z020clg400-1
+# XILINX_BOARD   := digilentinc.com:zybo-z7-20:part0:1.2
+
+# Arty 100T config
+BOARD          := arty-a7-100
+XILINX_PART    := xc7a100ticsg324-1L
+XILINX_BOARD   := digilentinc.com:arty-a7-100:part0:1.0
+
 CLK_PERIOD_NS  := 25
 BATCH_MODE ?= 1
 

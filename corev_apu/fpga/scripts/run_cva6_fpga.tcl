@@ -41,16 +41,22 @@ set_msg_config -id {[Synth 8-5858]} -new_severity "info"
 
 set_msg_config -id {[Synth 8-4480]} -limit 1000
 
-add_files -fileset constrs_1 -norecurse constraints/zybo_z7_20.xdc
+# Zybo Z7-20
+# add_files -fileset constrs_1 -norecurse constraints/zybo_z7_20.xdc
+
+# Arty A7 100T
+add_files -fileset constrs_1 -norecurse constraints/arty_a7_100.xdc
 
 read_ip { \
       "xilinx/xlnx_axi_clock_converter/xlnx_axi_clock_converter.srcs/sources_1/ip/xlnx_axi_clock_converter/xlnx_axi_clock_converter.xci" \
       "xilinx/xlnx_axi_dwidth_converter_dm_slave/xlnx_axi_dwidth_converter_dm_slave.srcs/sources_1/ip/xlnx_axi_dwidth_converter_dm_slave/xlnx_axi_dwidth_converter_dm_slave.xci" \
       "xilinx/xlnx_axi_dwidth_converter_dm_master/xlnx_axi_dwidth_converter_dm_master.srcs/sources_1/ip/xlnx_axi_dwidth_converter_dm_master/xlnx_axi_dwidth_converter_dm_master.xci" \
-      "xilinx/xlnx_processing_system7/xlnx_processing_system7.srcs/sources_1/ip/xlnx_processing_system7/xlnx_processing_system7.xci" \
       "xilinx/xlnx_blk_mem_gen/xlnx_blk_mem_gen.srcs/sources_1/ip/xlnx_blk_mem_gen/xlnx_blk_mem_gen.xci" \
       "xilinx/xlnx_clk_gen/xlnx_clk_gen.srcs/sources_1/ip/xlnx_clk_gen/xlnx_clk_gen.xci" \
 }
+
+# Arty A7 100T does not have or need the PS
+# "xilinx/xlnx_processing_system7/xlnx_processing_system7.srcs/sources_1/ip/xlnx_processing_system7/xlnx_processing_system7.xci" \
 
 set_property include_dirs { \
 	"src/axi_sd_bridge/include" \

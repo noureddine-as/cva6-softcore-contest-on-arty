@@ -8,16 +8,24 @@ set_property board_part $boardName [current_project]
 
 create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name $ipName
 
-set_property -dict [list CONFIG.PRIM_IN_FREQ {125.000} \
-                        CONFIG.NUM_OUT_CLKS {4} \
-                        CONFIG.CLKOUT2_USED {true} \
-                        CONFIG.CLKOUT3_USED {true} \
-                        CONFIG.CLKOUT4_USED {true} \
+# Zybo Z7-20 has a 152MHz input clock
+# set_property -dict [list CONFIG.PRIM_IN_FREQ {100.000} \
+#                         CONFIG.NUM_OUT_CLKS {4} \
+#                         CONFIG.CLKOUT2_USED {true} \
+#                         CONFIG.CLKOUT3_USED {true} \
+#                         CONFIG.CLKOUT4_USED {true} \
+#                         CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50} \
+#                         CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
+#                         CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {125} \
+#                         CONFIG.CLKOUT3_REQUESTED_PHASE {90.000} \
+#                         CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {50} \
+#                         CONFIG.CLKIN1_JITTER_PS {50.0} \
+#                        ] [get_ips $ipName]
+
+# Arty A7 100T has a 100MHz input clock. We only need one output clock for the UART.
+set_property -dict [list CONFIG.PRIM_IN_FREQ {100.000} \
+                        CONFIG.NUM_OUT_CLKS {1} \
                         CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50} \
-                        CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
-                        CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {125} \
-                        CONFIG.CLKOUT3_REQUESTED_PHASE {90.000} \
-                        CONFIG.CLKOUT4_REQUESTED_OUT_FREQ {50} \
                         CONFIG.CLKIN1_JITTER_PS {50.0} \
                        ] [get_ips $ipName]
 
